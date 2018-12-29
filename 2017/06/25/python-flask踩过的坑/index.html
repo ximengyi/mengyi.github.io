@@ -5,15 +5,20 @@
   
 
   
-  <title>夕小魔</title>
+  <title>python-flask | 夕小魔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="夕小魔">
-<meta property="og:url" content="http://ximengyi.github.io/index.html">
+  <meta name="description" content="[[‘GET’,’POST]’]一定按照这个顺序来写,否则get或post请求会无法访问if request.method==’POST’: #method或者request不能多写Surl(‘.hello’),记得写’’分号提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为em">
+<meta name="keywords" content="flask python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-flask">
+<meta property="og:url" content="http://ximengyi.github.io/2017/06/25/python-flask踩过的坑/index.html">
 <meta property="og:site_name" content="夕小魔">
+<meta property="og:description" content="[[‘GET’,’POST]’]一定按照这个顺序来写,否则get或post请求会无法访问if request.method==’POST’: #method或者request不能多写Surl(‘.hello’),记得写’’分号提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为em">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-29T03:57:32.501Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="夕小魔">
+<meta name="twitter:title" content="python-flask">
+<meta name="twitter:description" content="[[‘GET’,’POST]’]一定按照这个顺序来写,否则get或post请求会无法访问if request.method==’POST’: #method或者request不能多写Surl(‘.hello’),记得写’’分号提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为em">
   
     <link rel="alternate" href="/atom.xml" title="夕小魔" type="application/atom+xml">
   
@@ -60,54 +65,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/24/hello-world/" class="article-date">
-  <time datetime="2018-12-24T08:20:02.875Z" itemprop="datePublished">2018-12-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/24/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ximengyi.github.io/2018/12/24/hello-world/" data-id="cjq91lwc70000s8tns01g1cxb" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-python-flask踩过的坑" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-python-flask踩过的坑" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/06/25/python-flask踩过的坑/" class="article-date">
   <time datetime="2017-06-25T07:17:16.000Z" itemprop="datePublished">2017-06-25</time>
@@ -120,8 +78,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/25/python-flask踩过的坑/">python-flask</a>
+    <h1 class="article-title" itemprop="name">
+      python-flask
     </h1>
   
 
@@ -144,48 +102,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-新的征程" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/06/25/新的征程/" class="article-date">
-  <time datetime="2016-06-25T12:17:16.000Z" itemprop="datePublished">2016-06-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2018/12/24/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          Hello World
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/25/新的征程/">新的征程</a>
-    </h1>
   
+    <a href="/2016/06/25/新的征程/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">新的征程</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近自己花时间折腾了一下HEXO这个神器，用markdown语法写博客，不一样的体验。工作中踩过许多的坑，要想把坑记下来不犯同样的错误，写博客是个好习惯，<br>在写的同时不仅可以静下心来思考一些更有深度问题，也在总结经验中，让自己的思路更加清晰，印象更加深刻，就算忘了以后留作查档也是极好的，于是就决定在gitpage上开通自己的博客，提笔纪念一下。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ximengyi.github.io/2016/06/25/新的征程/" data-id="cjq91lwce0001s8tn0n1tmc0x" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
