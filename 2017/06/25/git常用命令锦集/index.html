@@ -5,19 +5,20 @@
   
 
   
-  <title>南歌子</title>
+  <title>Git 常用命令锦集 | 南歌子</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术博客">
-<meta name="keywords" content="博客 笔记">
-<meta property="og:type" content="website">
-<meta property="og:title" content="南歌子">
-<meta property="og:url" content="http://ximengyi.github.io/index.html">
+  <meta name="description" content="记录一些工作中常用的命令 查看当前工作目录状态 &amp;amp; 查看修改了哪些内容12git statusgit diff 丢弃当前目录所有的修改1git checkout . 添加当前目录 &amp;amp; 提交12git add .git commit -m &quot;这是新提交的文件&quot; 提交代码到远程新的分支 &amp;amp; 删除远程分支12git push -u origin hotfix/20180503gi">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 常用命令锦集">
+<meta property="og:url" content="http://ximengyi.github.io/2017/06/25/git常用命令锦集/index.html">
 <meta property="og:site_name" content="南歌子">
-<meta property="og:description" content="技术博客">
+<meta property="og:description" content="记录一些工作中常用的命令 查看当前工作目录状态 &amp;amp; 查看修改了哪些内容12git statusgit diff 丢弃当前目录所有的修改1git checkout . 添加当前目录 &amp;amp; 提交12git add .git commit -m &quot;这是新提交的文件&quot; 提交代码到远程新的分支 &amp;amp; 删除远程分支12git push -u origin hotfix/20180503gi">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-15T05:37:47.995Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="南歌子">
-<meta name="twitter:description" content="技术博客">
+<meta name="twitter:title" content="Git 常用命令锦集">
+<meta name="twitter:description" content="记录一些工作中常用的命令 查看当前工作目录状态 &amp;amp; 查看修改了哪些内容12git statusgit diff 丢弃当前目录所有的修改1git checkout . 添加当前目录 &amp;amp; 提交12git add .git commit -m &quot;这是新提交的文件&quot; 提交代码到远程新的分支 &amp;amp; 删除远程分支12git push -u origin hotfix/20180503gi">
   
     <link rel="alternate" href="/atom.xml" title="南歌子" type="application/atom+xml">
   
@@ -68,9 +69,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-git常用命令锦集" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-git常用命令锦集" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/06/25/git常用命令锦集/" class="article-date">
   <time datetime="2017-06-25T12:17:16.000Z" itemprop="datePublished">2017-06-25</time>
@@ -83,8 +82,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/25/git常用命令锦集/">Git 常用命令锦集</a>
+    <h1 class="article-title" itemprop="name">
+      Git 常用命令锦集
     </h1>
   
 
@@ -119,137 +118,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-python-flask踩过的坑" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/25/python-flask踩过的坑/" class="article-date">
-  <time datetime="2017-06-25T07:17:16.000Z" itemprop="datePublished">2017-06-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/25/python-flask踩过的坑/">python-flask</a>
-    </h1>
+    <a href="/2017/06/25/python-flask踩过的坑/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python-flask</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="‘GET’-’POST-’-一定按照这个顺序来写-否则get或post请求会无法访问"><a href="#‘GET’-’POST-’-一定按照这个顺序来写-否则get或post请求会无法访问" class="headerlink" title="[[‘GET’,’POST]’]一定按照这个顺序来写,否则get或post请求会无法访问"></a>[[‘GET’,’POST]’]一定按照这个顺序来写,否则get或post请求会无法访问</h4><h4 id="if-request-method-’POST’-method或者request不能多写S"><a href="#if-request-method-’POST’-method或者request不能多写S" class="headerlink" title="if request.method==’POST’: #method或者request不能多写S"></a>if request.method==’POST’: #method或者request不能多写S</h4><h4 id="url-‘-hello’-记得写’’分号"><a href="#url-‘-hello’-记得写’’分号" class="headerlink" title="url(‘.hello’),记得写’’分号"></a>url(‘.hello’),记得写’’分号</h4><h4 id="提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为email格式则不能提交表单"><a href="#提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为email格式则不能提交表单" class="headerlink" title="提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为email格式则不能提交表单"></a>提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为email格式则不能提交表单</h4><hr>
-<h3 id="关于数据库操作对象的思考-如下代码"><a href="#关于数据库操作对象的思考-如下代码" class="headerlink" title="关于数据库操作对象的思考,如下代码"></a>关于数据库操作对象的思考,如下代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SELECT STUNUM,NAME FROM STUDENT INNER JOIN COMSTU ON STUDENT.RFID=COMSTU.RFID AND COMNUM=<span class="number">1</span> AND SUBJECT=<span class="string">'数学'</span></span><br><span class="line">conn = sqlite3.connect(<span class="string">'test.db'</span>)</span><br><span class="line">c = conn.cursor()</span><br><span class="line">b =conn.cursor()</span><br><span class="line"><span class="keyword">if</span> request.method==<span class="string">'POST'</span>:</span><br><span class="line">    grade=request.form[<span class="string">'grade'</span>]</span><br><span class="line">    stuclass=request.form[<span class="string">'stuclass'</span>] </span><br><span class="line">    subject=request.form[<span class="string">'subject'</span>] </span><br><span class="line">    comnum =request.form[<span class="string">'comnum'</span>]</span><br><span class="line">    curclass=c.execute(<span class="string">"SELECT STUNUM,NAME,CLASS,GRADE FROM STUDENT WHERE GRADE=:grade AND CLASS=:stuclass"</span>,&#123;<span class="string">'grade'</span>:grade ,<span class="string">'stuclass'</span>:stuclass&#125;)</span><br><span class="line">    curcom =b.execute(<span class="string">"SELECT STUNUM,NAME,CLASS,GRADE FROM STUDENT INNER JOIN COMSTU ON STUDENT.RFID=COMSTU.RFID AND COMNUM=:comnum AND SUBJECT=:subject AND CLASS=:stuclass AND GRADE=:grade"</span>,&#123;<span class="string">'comnum'</span>:comnum,<span class="string">'grade'</span>:grade,<span class="string">'stuclass'</span>:stuclass,<span class="string">'subject'</span>:subject&#125;)</span><br><span class="line">    cursor= list(set(curclass).difference(set(curcom))) </span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'view.html'</span>, entries=cursor)</span><br></pre></td></tr></table></figure>
-<p> 上述代码执行了两次execute函数,但是第一次的数据会被覆盖掉，这是因为数据库连接对象只有一个，所以执行第二次查询的时候前面一次数据会被覆盖掉，虽然创建了两个游标，如需同时两次数据做差集，则需要创建两个数据库对象</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ximengyi.github.io/2017/06/25/python-flask踩过的坑/" data-id="cjs5fyoen00017gtnjjqj90fa" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flask-python/">flask python</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-新的征程" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/25/新的征程/" class="article-date">
-  <time datetime="2016-12-25T12:17:16.000Z" itemprop="datePublished">2016-12-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/25/新的征程/">新的征程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近自己花时间折腾了一下HEXO这个工具，用markdown语法写博客，感觉不错。写博客是个好习惯，把工作遇到的问题记录下来，可以更好的提升自己</p>
-<p>在写的同时不仅可以静下心来思考一些更有深度问题，印象更加深刻，就算忘了以后留作查档也是极好的，提笔纪念一下。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ximengyi.github.io/2016/12/25/新的征程/" data-id="cjs5fyoeq00027gtn7sryg8r1" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/25/hello-world/" class="article-date">
-  <time datetime="2016-12-25T07:17:16.000Z" itemprop="datePublished">2016-12-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/25/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://ximengyi.github.io/2016/12/25/hello-world/" data-id="cjs5fyoeh00007gtn4eubh76k" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hello-world/">hello world</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
