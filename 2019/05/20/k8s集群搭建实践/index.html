@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Kubernetes集群搭建 | 南歌子</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1 最近搞了一台电脑特地让商家加装了8G的内存条，准备搞一下Kubernetes(以下简称k8s)集群及容器编排技术，ok,直接上干货。k8s与docker之间是有版本的依赖关系的如果没有按照官方的指导来，可能会出现莫名奇妙的问题，不要怪官方没有提醒哦。依赖关系可以查看k8s的github官方文档https://github.com/kubernetes/kubernetes/blob/maste">
+<meta name="keywords" content="k8s,集群搭建,Kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes集群搭建">
+<meta property="og:url" content="http://ximengyi.github.io/2019/05/20/k8s集群搭建实践/index.html">
+<meta property="og:site_name" content="南歌子">
+<meta property="og:description" content="1 最近搞了一台电脑特地让商家加装了8G的内存条，准备搞一下Kubernetes(以下简称k8s)集群及容器编排技术，ok,直接上干货。k8s与docker之间是有版本的依赖关系的如果没有按照官方的指导来，可能会出现莫名奇妙的问题，不要怪官方没有提醒哦。依赖关系可以查看k8s的github官方文档https://github.com/kubernetes/kubernetes/blob/maste">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://ximengyi.github.io/images/k8s/k8s1.png">
+<meta property="og:image" content="http://ximengyi.github.io/images/laravel源码/laravel2.png">
+<meta property="og:image" content="http://ximengyi.github.io/images/laravel源码/laravel3.png">
+<meta property="og:updated_time" content="2019-05-23T06:44:22.585Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes集群搭建">
+<meta name="twitter:description" content="1 最近搞了一台电脑特地让商家加装了8G的内存条，准备搞一下Kubernetes(以下简称k8s)集群及容器编排技术，ok,直接上干货。k8s与docker之间是有版本的依赖关系的如果没有按照官方的指导来，可能会出现莫名奇妙的问题，不要怪官方没有提醒哦。依赖关系可以查看k8s的github官方文档https://github.com/kubernetes/kubernetes/blob/maste">
+<meta name="twitter:image" content="http://ximengyi.github.io/images/k8s/k8s1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="南歌子" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">南歌子</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">XI的博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://ximengyi.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-k8s集群搭建实践" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/20/k8s集群搭建实践/" class="article-date">
+  <time datetime="2019-05-20T03:30:16.000Z" itemprop="datePublished">2019-05-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Kubernetes集群搭建
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-最近搞了一台电脑特地让商家加装了8G的内存条，准备搞一下Kubernetes-以下简称k8s-集群及容器编排技术，ok-直接上干货。"><a href="#1-最近搞了一台电脑特地让商家加装了8G的内存条，准备搞一下Kubernetes-以下简称k8s-集群及容器编排技术，ok-直接上干货。" class="headerlink" title="1 最近搞了一台电脑特地让商家加装了8G的内存条，准备搞一下Kubernetes(以下简称k8s)集群及容器编排技术，ok,直接上干货。"></a>1 最近搞了一台电脑特地让商家加装了8G的内存条，准备搞一下Kubernetes(以下简称k8s)集群及容器编排技术，ok,直接上干货。</h4><h5 id="k8s与docker之间是有版本的依赖关系的如果没有按照官方的指导来，可能会出现莫名奇妙的问题，不要怪官方没有提醒哦。"><a href="#k8s与docker之间是有版本的依赖关系的如果没有按照官方的指导来，可能会出现莫名奇妙的问题，不要怪官方没有提醒哦。" class="headerlink" title="k8s与docker之间是有版本的依赖关系的如果没有按照官方的指导来，可能会出现莫名奇妙的问题，不要怪官方没有提醒哦。"></a>k8s与docker之间是有版本的依赖关系的如果没有按照官方的指导来，可能会出现莫名奇妙的问题，不要怪官方没有提醒哦。</h5><p>依赖关系可以查看k8s的github官方文档<a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#external-dependencies" target="_blank" rel="noopener">https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#external-dependencies</a><br><img src="/images/k8s/k8s1.png" alt=""><br><a id="more"></a></p>
+<h4 id="官方提供Kubernetes部署3种方式"><a href="#官方提供Kubernetes部署3种方式" class="headerlink" title="官方提供Kubernetes部署3种方式"></a>官方提供Kubernetes部署3种方式</h4><ul>
+<li><h4 id="minikube"><a href="#minikube" class="headerlink" title="minikube"></a>minikube</h4>Minikube是一个工具，可以在本地快速运行一个单点的Kubernetes，尝试Kubernetes或日常开发的用户使用。不能用于生产环境</li>
+<li><h4 id="kubeadm"><a href="#kubeadm" class="headerlink" title="kubeadm"></a>kubeadm</h4>kubeadm可帮助你快速部署一套kubernetes集群。kubeadm设计目的为新用户开始尝试kubernetes提供一种简单的方法</li>
+<li><h4 id="二进制包"><a href="#二进制包" class="headerlink" title="二进制包"></a>二进制包</h4>从官方下载发行版的二进制包，手动部署每个组件，组成Kubernetes集群。目前企业生产环境中主要使用该方式<h4 id="2-带着以上的问题，我们会随着对源码的解读，逐渐揭开laravel神秘的面纱。"><a href="#2-带着以上的问题，我们会随着对源码的解读，逐渐揭开laravel神秘的面纱。" class="headerlink" title="2 带着以上的问题，我们会随着对源码的解读，逐渐揭开laravel神秘的面纱。"></a>2 带着以上的问题，我们会随着对源码的解读，逐渐揭开laravel神秘的面纱。</h4><h5 id="在生活中，无论我们做什么事，都会有一定的标准和规范，有了这些规范和标准，使得我们的操作变得有迹可循。编程亦是如此，在完成某个业务逻辑的时候，如果我们能够把业务抽象出来，制定统一的规范，不仅会我们的业务逻辑变得清晰，也会使得代码可以服用，减少工作量，避免重复的造轮子。那么，对于优秀的代码，我们在编写业务逻辑的时候通常是先写接口，制定规范和协议。"><a href="#在生活中，无论我们做什么事，都会有一定的标准和规范，有了这些规范和标准，使得我们的操作变得有迹可循。编程亦是如此，在完成某个业务逻辑的时候，如果我们能够把业务抽象出来，制定统一的规范，不仅会我们的业务逻辑变得清晰，也会使得代码可以服用，减少工作量，避免重复的造轮子。那么，对于优秀的代码，我们在编写业务逻辑的时候通常是先写接口，制定规范和协议。" class="headerlink" title="在生活中，无论我们做什么事，都会有一定的标准和规范，有了这些规范和标准，使得我们的操作变得有迹可循。编程亦是如此，在完成某个业务逻辑的时候，如果我们能够把业务抽象出来，制定统一的规范，不仅会我们的业务逻辑变得清晰，也会使得代码可以服用，减少工作量，避免重复的造轮子。那么，对于优秀的代码，我们在编写业务逻辑的时候通常是先写接口，制定规范和协议。"></a>在生活中，无论我们做什么事，都会有一定的标准和规范，有了这些规范和标准，使得我们的操作变得有迹可循。编程亦是如此，在完成某个业务逻辑的时候，如果我们能够把业务抽象出来，制定统一的规范，不仅会我们的业务逻辑变得清晰，也会使得代码可以服用，减少工作量，避免重复的造轮子。那么，对于优秀的代码，我们在编写业务逻辑的时候通常是先写接口，制定规范和协议。</h5><h5 id="在laravel的源码中有这样的一个文件夹，Contracts-如下图所示"><a href="#在laravel的源码中有这样的一个文件夹，Contracts-如下图所示" class="headerlink" title="在laravel的源码中有这样的一个文件夹，Contracts(如下图所示)"></a>在laravel的源码中有这样的一个文件夹，Contracts(如下图所示)</h5><img src="/images/laravel源码/laravel2.png" alt=""><h5 id="Contracts的英文翻译有契约，协议的意思。因此在此文件夹下，我们可以看到里面有很多和上级llluminate文件夹有很多同名的文件夹，Contracts文件夹下放的都是llluminate文件夹下的组件的接口规范，里面都是interface类，定义了实现这些接口必须要实现的方法，因此，如果我们想知道某些组件是如何使用的，我们可以通过查看这个组件在llluminate-gt-Contracts-gt-组件接口，基本上也能够猜到这个接口所具有的功能。"><a href="#Contracts的英文翻译有契约，协议的意思。因此在此文件夹下，我们可以看到里面有很多和上级llluminate文件夹有很多同名的文件夹，Contracts文件夹下放的都是llluminate文件夹下的组件的接口规范，里面都是interface类，定义了实现这些接口必须要实现的方法，因此，如果我们想知道某些组件是如何使用的，我们可以通过查看这个组件在llluminate-gt-Contracts-gt-组件接口，基本上也能够猜到这个接口所具有的功能。" class="headerlink" title="Contracts的英文翻译有契约，协议的意思。因此在此文件夹下，我们可以看到里面有很多和上级llluminate文件夹有很多同名的文件夹，Contracts文件夹下放的都是llluminate文件夹下的组件的接口规范，里面都是interface类，定义了实现这些接口必须要实现的方法，因此，如果我们想知道某些组件是如何使用的，我们可以通过查看这个组件在llluminate-&gt;Contracts-&gt;组件接口，基本上也能够猜到这个接口所具有的功能。"></a>Contracts的英文翻译有契约，协议的意思。因此在此文件夹下，我们可以看到里面有很多和上级llluminate文件夹有很多同名的文件夹，Contracts文件夹下放的都是llluminate文件夹下的组件的接口规范，里面都是interface类，定义了实现这些接口必须要实现的方法，因此，如果我们想知道某些组件是如何使用的，我们可以通过查看这个组件在llluminate-&gt;Contracts-&gt;组件接口，基本上也能够猜到这个接口所具有的功能。</h5><img src="/images/laravel源码/laravel3.png" alt=""><h3 id="3再讲laravel核心的实现之前，为了方便理解，我们先看一个例子，就拿一个常见的工厂设计模式来举例："><a href="#3再讲laravel核心的实现之前，为了方便理解，我们先看一个例子，就拿一个常见的工厂设计模式来举例：" class="headerlink" title="3再讲laravel核心的实现之前，为了方便理解，我们先看一个例子，就拿一个常见的工厂设计模式来举例："></a>3再讲laravel核心的实现之前，为了方便理解，我们先看一个例子，就拿一个常见的工厂设计模式来举例：</h3>故事背景：<br>小明有一天要从北京到上海新天地找他女朋友，他怎么到上海呢?计划————–&gt;高铁-&gt;打车，<br>小红有一天要从北京到上海五角场找他男朋友，他怎么到上海呢？计划————-&gt;飞机-&gt;公交车-&gt;摩拜<br>为了方便理解，假如如果每种交通工具都是一个类，小明可以乘坐多种交通工具，每一个类都有一个go方法可以从某地到某地，我们来编写这个案例：<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Transport</span></span>&#123;     </span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">go</span><span class="params">($address)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bus</span> <span class="keyword">implements</span> <span class="title">Transport</span></span>&#123;   </span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">go</span><span class="params">($address)</span></span>&#123;       </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"----乘坐公交车到达&#123;$address&#125;----\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">Transport</span></span>&#123;   </span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">go</span><span class="params">($address)</span></span>&#123;       </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"----乘坐出租车到达&#123;$address&#125;----\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bike</span> <span class="keyword">implements</span> <span class="title">Transport</span></span>&#123;   </span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">go</span><span class="params">($address)</span></span>&#123;       </span><br><span class="line"><span class="keyword">echo</span> <span class="string">"----骑着摩拜到达&#123;$address&#125;----\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Airplane</span> <span class="keyword">implements</span> <span class="title">Transport</span></span>&#123;   </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">go</span><span class="params">($address)</span></span>&#123;       </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"----乘坐飞机到达&#123;$address&#125;----\n"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Highiron</span> <span class="keyword">implements</span> <span class="title">Transport</span></span>&#123;   </span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">go</span><span class="params">($address)</span></span>&#123;       </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"----乘坐高铁到达&#123;$address&#125;-----\n"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">transFactory</span></span>&#123;   </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">factoryTool</span><span class="params">($name,$transport)</span></span></span><br><span class="line"><span class="function">    </span>&#123;     </span><br><span class="line">      <span class="keyword">echo</span> <span class="string">"&#123;$name&#125;"</span>;</span><br><span class="line">        <span class="keyword">switch</span> ($transport) &#123;           </span><br><span class="line">        <span class="keyword">case</span> <span class="string">'bus'</span>:               </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Bus();               </span><br><span class="line">        <span class="keyword">break</span>;           </span><br><span class="line">        <span class="keyword">case</span> <span class="string">'car'</span>:               </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Car();               </span><br><span class="line">        <span class="keyword">break</span>;           </span><br><span class="line">        <span class="keyword">case</span> <span class="string">'bike'</span>:               </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Bike(); </span><br><span class="line">        <span class="keyword">case</span> <span class="string">'airplane'</span>:               </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Airplane();              </span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'highiron'</span>:               </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Highiron();              </span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"-----没有&#123;$transport&#125;交通工具,请先创建"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//小红-----------------------</span></span><br><span class="line">$xiaoMing=transFactory::factoryTool(<span class="string">'小明'</span>,<span class="string">'highiron'</span>);</span><br><span class="line">$xiaoMing-&gt;go(<span class="string">"上海"</span>);</span><br><span class="line">$xiaoMing=transFactory::factoryTool(<span class="string">'小明'</span>,<span class="string">'car'</span>);</span><br><span class="line">$xiaoMing-&gt;go(<span class="string">"新天地"</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"\n"</span>;</span><br><span class="line"><span class="comment">//------------------------------- 小红</span></span><br><span class="line">$xiaoHong=transFactory::factoryTool(<span class="string">'小红'</span>,<span class="string">'airplane'</span>);</span><br><span class="line">$xiaoHong-&gt;go(<span class="string">"上海"</span>);</span><br><span class="line">$xiaoHong=transFactory::factoryTool(<span class="string">'小红'</span>,<span class="string">'bus'</span>);</span><br><span class="line">$xiaoHong-&gt;go(<span class="string">"邯郸路"</span>);</span><br><span class="line">$xiaoHong=transFactory::factoryTool(<span class="string">'小红'</span>,<span class="string">'bike'</span>);</span><br><span class="line">$xiaoHong-&gt;go(<span class="string">"五角场"</span>);</span><br><span class="line"><span class="comment">//--------------------------------小红想坐飞碟去上海</span></span><br><span class="line">$xiaoHong=transFactory::factoryTool(<span class="string">'小红'</span>,<span class="string">'feidie'</span>);</span><br><span class="line"><span class="comment">//$xiaoHong-&gt;go('上海');</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在这个案例中我们使用工厂模式优雅的获取了获取了，交通工具类的实例，实例的new 都是在工厂模式中，一定程度上解耦了业务代码和交通工具类的耦合。当我们修改了某个交通工具，只需要修改工厂模式即可，代码结构也变得清晰，但是我们思考一个问题，如果有越来越多的交通工具，每次添加，都需要修改工厂类，增加new的实例，交通工具工厂类会变得越来越难以为维护，我们需要不停的修改工厂类。<br>有没有什么方法可以解决这个问题，思考5秒钟···</p>
+<hr>
+<h4 id="我们需要下面这样的代码：我们希望类的创建动态的完成"><a href="#我们需要下面这样的代码：我们希望类的创建动态的完成" class="headerlink" title="我们需要下面这样的代码：我们希望类的创建动态的完成"></a>我们需要下面这样的代码：我们希望类的创建动态的完成</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我们需要下面这样的代码：类的创建动态的完成</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">transFactory</span></span>&#123;   </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">factoryTool</span><span class="params">($name,$transport)</span></span></span><br><span class="line"><span class="function">    </span>&#123;     </span><br><span class="line">      <span class="keyword">echo</span> <span class="string">"&#123;$name&#125;"</span>;</span><br><span class="line">        <span class="keyword">switch</span> ($transport) &#123;           </span><br><span class="line">        <span class="keyword">case</span> <span class="string">'transport'</span>:               </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> $transport();               </span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"-----没有&#123;$transport&#125;交通工具,请先创建"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 当然是有的我们可以通过php反射里的反射来动态的获取类的实例<br> 我们的代码可能就编程这个样子了，</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ximengyi.github.io/2019/05/20/k8s集群搭建实践/" data-id="cjw0491460000pctn7119ts64" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/k8s-集群搭建-Kubernetes/">k8s,集群搭建,Kubernetes</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/25/laravel底层Auth组件源码剖析/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">laravel 底层auth源码</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo-常用命令/">Hexo 常用命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-python/">flask python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s-集群搭建-Kubernetes/">k8s,集群搭建,Kubernetes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/laravel-auth/">laravel auth</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/laravel源码剖析/">laravel源码剖析</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hexo-常用命令/" style="font-size: 10px;">Hexo 常用命令</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/flask-python/" style="font-size: 10px;">flask python</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/k8s-集群搭建-Kubernetes/" style="font-size: 10px;">k8s,集群搭建,Kubernetes</a> <a href="/tags/laravel-auth/" style="font-size: 10px;">laravel auth</a> <a href="/tags/laravel源码剖析/" style="font-size: 10px;">laravel源码剖析</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/20/k8s集群搭建实践/">Kubernetes集群搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/25/laravel底层Auth组件源码剖析/">laravel 底层auth源码</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/25/laravel源码剖析/">laravel 源码</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/25/docker实践/">docker 实践</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/25/git常用命令锦集/">Git 常用命令锦集</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 依然XI<br>
+      Powered by <a href="http://ximengyi.github.io/" target="_blank">XI</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

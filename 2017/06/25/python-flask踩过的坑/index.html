@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="南歌子">
 <meta property="og:description" content="[[‘GET’,’POST]’]一定按照这个顺序来写,否则get或post请求会无法访问if request.method==’POST’: #method或者request不能多写Surl(‘.hello’),记得写’’分号提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为em">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-29T03:57:32.501Z">
+<meta property="og:updated_time" content="2019-04-25T15:19:30.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python-flask">
 <meta name="twitter:description" content="[[‘GET’,’POST]’]一定按照这个顺序来写,否则get或post请求会无法访问if request.method==’POST’: #method或者request不能多写Surl(‘.hello’),记得写’’分号提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为em">
@@ -92,7 +92,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="‘GET’-’POST-’-一定按照这个顺序来写-否则get或post请求会无法访问"><a href="#‘GET’-’POST-’-一定按照这个顺序来写-否则get或post请求会无法访问" class="headerlink" title="[[‘GET’,’POST]’]一定按照这个顺序来写,否则get或post请求会无法访问"></a>[[‘GET’,’POST]’]一定按照这个顺序来写,否则get或post请求会无法访问</h4><h4 id="if-request-method-’POST’-method或者request不能多写S"><a href="#if-request-method-’POST’-method或者request不能多写S" class="headerlink" title="if request.method==’POST’: #method或者request不能多写S"></a>if request.method==’POST’: #method或者request不能多写S</h4><h4 id="url-‘-hello’-记得写’’分号"><a href="#url-‘-hello’-记得写’’分号" class="headerlink" title="url(‘.hello’),记得写’’分号"></a>url(‘.hello’),记得写’’分号</h4><h4 id="提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为email格式则不能提交表单"><a href="#提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为email格式则不能提交表单" class="headerlink" title="提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为email格式则不能提交表单"></a>提交表单插入数据时，表单的input框type一定的写成text，如果为email，则表单并不能提交，这个错误应该是bootstap开启了javascript表单验证不为email格式则不能提交表单</h4><hr>
-<h3 id="关于数据库操作对象的思考-如下代码"><a href="#关于数据库操作对象的思考-如下代码" class="headerlink" title="关于数据库操作对象的思考,如下代码"></a>关于数据库操作对象的思考,如下代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SELECT STUNUM,NAME FROM STUDENT INNER JOIN COMSTU ON STUDENT.RFID=COMSTU.RFID AND COMNUM=<span class="number">1</span> AND SUBJECT=<span class="string">'数学'</span></span><br><span class="line">conn = sqlite3.connect(<span class="string">'test.db'</span>)</span><br><span class="line">c = conn.cursor()</span><br><span class="line">b =conn.cursor()</span><br><span class="line"><span class="keyword">if</span> request.method==<span class="string">'POST'</span>:</span><br><span class="line">    grade=request.form[<span class="string">'grade'</span>]</span><br><span class="line">    stuclass=request.form[<span class="string">'stuclass'</span>] </span><br><span class="line">    subject=request.form[<span class="string">'subject'</span>] </span><br><span class="line">    comnum =request.form[<span class="string">'comnum'</span>]</span><br><span class="line">    curclass=c.execute(<span class="string">"SELECT STUNUM,NAME,CLASS,GRADE FROM STUDENT WHERE GRADE=:grade AND CLASS=:stuclass"</span>,&#123;<span class="string">'grade'</span>:grade ,<span class="string">'stuclass'</span>:stuclass&#125;)</span><br><span class="line">    curcom =b.execute(<span class="string">"SELECT STUNUM,NAME,CLASS,GRADE FROM STUDENT INNER JOIN COMSTU ON STUDENT.RFID=COMSTU.RFID AND COMNUM=:comnum AND SUBJECT=:subject AND CLASS=:stuclass AND GRADE=:grade"</span>,&#123;<span class="string">'comnum'</span>:comnum,<span class="string">'grade'</span>:grade,<span class="string">'stuclass'</span>:stuclass,<span class="string">'subject'</span>:subject&#125;)</span><br><span class="line">    cursor= list(set(curclass).difference(set(curcom))) </span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'view.html'</span>, entries=cursor)</span><br></pre></td></tr></table></figure>
+<h3 id="关于数据库操作对象的思考-如下代码"><a href="#关于数据库操作对象的思考-如下代码" class="headerlink" title="关于数据库操作对象的思考,如下代码"></a>关于数据库操作对象的思考,如下代码</h3><a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SELECT STUNUM,NAME FROM STUDENT INNER JOIN COMSTU ON STUDENT.RFID=COMSTU.RFID AND COMNUM=<span class="number">1</span> AND SUBJECT=<span class="string">'数学'</span></span><br><span class="line">conn = sqlite3.connect(<span class="string">'test.db'</span>)</span><br><span class="line">c = conn.cursor()</span><br><span class="line">b =conn.cursor()</span><br><span class="line"><span class="keyword">if</span> request.method==<span class="string">'POST'</span>:</span><br><span class="line">    grade=request.form[<span class="string">'grade'</span>]</span><br><span class="line">    stuclass=request.form[<span class="string">'stuclass'</span>] </span><br><span class="line">    subject=request.form[<span class="string">'subject'</span>] </span><br><span class="line">    comnum =request.form[<span class="string">'comnum'</span>]</span><br><span class="line">    curclass=c.execute(<span class="string">"SELECT STUNUM,NAME,CLASS,GRADE FROM STUDENT WHERE GRADE=:grade AND CLASS=:stuclass"</span>,&#123;<span class="string">'grade'</span>:grade ,<span class="string">'stuclass'</span>:stuclass&#125;)</span><br><span class="line">    curcom =b.execute(<span class="string">"SELECT STUNUM,NAME,CLASS,GRADE FROM STUDENT INNER JOIN COMSTU ON STUDENT.RFID=COMSTU.RFID AND COMNUM=:comnum AND SUBJECT=:subject AND CLASS=:stuclass AND GRADE=:grade"</span>,&#123;<span class="string">'comnum'</span>:comnum,<span class="string">'grade'</span>:grade,<span class="string">'stuclass'</span>:stuclass,<span class="string">'subject'</span>:subject&#125;)</span><br><span class="line">    cursor= list(set(curclass).difference(set(curcom))) </span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'view.html'</span>, entries=cursor)</span><br></pre></td></tr></table></figure>
 <p> 上述代码执行了两次execute函数,但是第一次的数据会被覆盖掉，这是因为数据库连接对象只有一个，所以执行第二次查询的时候前面一次数据会被覆盖掉，虽然创建了两个游标，如需同时两次数据做差集，则需要创建两个数据库对象</p>
 
       
@@ -137,7 +138,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -150,7 +151,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo-常用命令/">Hexo 常用命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-python/">flask python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo-常用命令/">Hexo 常用命令</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-python/">flask python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s-集群搭建-Kubernetes/">k8s,集群搭建,Kubernetes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/laravel-auth/">laravel auth</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/laravel源码剖析/">laravel源码剖析</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -160,7 +161,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Hexo-常用命令/" style="font-size: 10px;">Hexo 常用命令</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/flask-python/" style="font-size: 10px;">flask python</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+      <a href="/tags/Hexo-常用命令/" style="font-size: 10px;">Hexo 常用命令</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/flask-python/" style="font-size: 10px;">flask python</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/k8s-集群搭建-Kubernetes/" style="font-size: 10px;">k8s,集群搭建,Kubernetes</a> <a href="/tags/laravel-auth/" style="font-size: 10px;">laravel auth</a> <a href="/tags/laravel源码剖析/" style="font-size: 10px;">laravel源码剖析</a>
     </div>
   </div>
 
@@ -172,23 +173,23 @@
       <ul>
         
           <li>
+            <a href="/2019/05/20/k8s集群搭建实践/">Kubernetes集群搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/25/laravel底层Auth组件源码剖析/">laravel 底层auth源码</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/25/laravel源码剖析/">laravel 源码</a>
+          </li>
+        
+          <li>
             <a href="/2018/05/25/docker实践/">docker 实践</a>
           </li>
         
           <li>
             <a href="/2017/06/25/git常用命令锦集/">Git 常用命令锦集</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/25/python-flask踩过的坑/">python-flask</a>
-          </li>
-        
-          <li>
-            <a href="/2016/12/25/新的征程/">新的征程</a>
-          </li>
-        
-          <li>
-            <a href="/2016/12/25/hexo常用命令/">Hexo 常用命令</a>
           </li>
         
       </ul>
